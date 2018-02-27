@@ -14,7 +14,7 @@ RUN curl -L -o sos-bundle.zip https://github.com/52North/sos/releases/download/v
     && unzip -d sos-webapp sos-bundle/*/bin/target/*.war \
     && cp -R /tmp/tomcat-conf/* $CATALINA_HOME/conf/ \
     && cp -R /tmp/rest-api-config/* sos-webapp/WEB-INF/ \
-    && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get -y install nodejs git g++ python pkg-config libcairo2-dev libjpeg62-turbo-dev libpango1.0-dev libgif-dev build-essential \
     && npm install -g grunt grunt-cli node-gyp \
     && curl -L -o helgoland.zip https://github.com/52North/helgoland/archive/v1.0.0.zip \
