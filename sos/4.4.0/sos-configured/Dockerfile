@@ -1,4 +1,4 @@
-FROM 52north/sos:4.4.0
+FROM geobeyond/sos:4.4.0
 MAINTAINER Matthes Rieke <m.rieke@52north.org>
 
 # Project: https://github.com/52North/sos
