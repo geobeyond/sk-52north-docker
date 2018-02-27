@@ -5,7 +5,6 @@ MAINTAINER Matthes Rieke <m.rieke@52north.org>
 
 RUN apt-get -y install netcat && apt-get clean
 
-RUN mv $CATALINA_HOME/webapps/52n-sos-webapp/ $CATALINA_HOME/webapps/observations/
 COPY sos-config/configuration.db $CATALINA_HOME/webapps/observations/
 COPY sos-config/datasource.properties $CATALINA_HOME/webapps/observations/WEB-INF
 COPY tomcat-bin/* $CATALINA_HOME/bin

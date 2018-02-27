@@ -5,15 +5,15 @@ MAINTAINER Matthes Rieke <m.rieke@52north.org>
 
 WORKDIR /tmp
 #COPY tomcat-conf/* $CATALINA_HOME/conf/
-#COPY rest-api-config/* sos-webapp/WEB-INF/classes/
+#COPY rest-api-config/* observations/WEB-INF/classes/
 COPY tomcat-conf/ /tmp/tomcat-conf/
 COPY rest-api-config/ /tmp/rest-api-config/
 COPY helgoland-config/ /tmp/helgoland-config/
 RUN curl -L -o sos-bundle.zip https://github.com/52North/sos/releases/download/v4.4.0/52n-sensorweb-sos-bundle-4.4.0.zip \
     && unzip -d sos-bundle sos-bundle.zip \
-    && unzip -d sos-webapp sos-bundle/*/bin/target/*.war \
+    && unzip -d observations sos-bundle/*/bin/target/*.war \
     && cp -R /tmp/tomcat-conf/* $CATALINA_HOME/conf/ \
-    && cp -R /tmp/rest-api-config/* sos-webapp/WEB-INF/ \
+    && cp -R /tmp/rest-api-config/* observations/WEB-INF/ \
     && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get -y install nodejs git g++ python pkg-config libcairo2-dev libjpeg62-turbo-dev libpango1.0-dev libgif-dev build-essential \
     && npm install -g grunt grunt-cli node-gyp \
@@ -22,9 +22,9 @@ RUN curl -L -o sos-bundle.zip https://github.com/52North/sos/releases/download/v
     && cd helgoland/helgoland-1.0.0 \
     && npm install && grunt \
     && cp /tmp/helgoland-config/* dist/ \
-    && cp -R dist/ ../../sos-webapp/static/client/helgoland \
+    && cp -R dist/ ../../observations/static/client/helgoland \
     && cd ../../ \
-    && cp -R sos-webapp/ $CATALINA_HOME/webapps/52n-sos-webapp \
+    && cp -R observations/ $CATALINA_HOME/webapps/observations \
     && npm uninstall -g grunt grunt-cli node-gyp \
     && apt-get -y purge nodejs git python g++ python python3.5 python2.7 python3 pkg-config libcairo2-dev libjpeg62-turbo-dev libpango1.0-dev libgif-dev build-essential \
     && apt-get -y autoremove --purge \
