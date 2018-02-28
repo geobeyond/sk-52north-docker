@@ -13,11 +13,11 @@ COPY tomcat-bin/* $CATALINA_HOME/bin
 # install python and pip
 RUN apt-get update \
     && apt-get -y upgrade \
-    && apt-get install -y python python-pip python-dev \
+    && apt-get install -y python python-pip python-dev
 
 COPY sos-config/requirements.txt /tmp
-COPY entrypoint.sh /tmp
-COPY tasks.py /tmp
+COPY sos-config/entrypoint.sh /tmp
+COPY sos-config/tasks.py /tmp
 
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt \
