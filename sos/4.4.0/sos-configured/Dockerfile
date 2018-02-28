@@ -3,7 +3,7 @@ MAINTAINER Francesco Bartoli <francesco.bartoli@geobeyond.it>
 
 # Project: https://github.com/52North/sos
 
-    && apt-get -y install netcat \
+RUN apt-get -y install netcat \
     && apt-get clean
 
 COPY sos-config/configuration.db $CATALINA_HOME/webapps/observations/
