@@ -19,8 +19,6 @@ def update(ctx):
     print "Public Hostname or IP is {0}".format(pub_ip)
     pub_port = _geonode_public_port()
     print "Public PORT is {0}".format(pub_port)
-    db_url = _update_db_connstring()
-    geodb_url = _update_geodb_connstring()
     envs = {
         "public_fqdn": "{0}:{1}".format(pub_ip, pub_port),
         "public_host": "{0}".format(pub_ip),
