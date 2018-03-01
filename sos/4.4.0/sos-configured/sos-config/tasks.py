@@ -32,18 +32,6 @@ def update(ctx):
 http://{public_fqdn}/geoserver/ >> {override_fn}".format(**envs), pty=True)
     ctx.run("echo export SERVICE_SOSURL=\
 http://{public_fqdn}/observations/service >> {override_fn}".format(**envs), pty=True)
-    ctx.run("echo export SITEURL=\
-http://{public_fqdn}/ >> {override_fn}".format(**envs), pty=True)
-    ctx.run("echo export ALLOWED_HOSTS=\
-\"\\\"["{public_fqdn}", "{public_host}",]\\\"\" \
->> {override_fn}".format(**envs), pty=True)
-    ctx.run("echo export DATABASE_URL=\
-{dburl} >> {override_fn}".format(**envs), pty=True)
-    ctx.run("echo export GEODATABASE_URL=\
-{geodburl} >> {override_fn}".format(**envs), pty=True)
-    ctx.run("source $HOME/.override_env", pty=True)
-    print "****************************final**********************************"
-    ctx.run("env", pty=True)
 
 
 @task
