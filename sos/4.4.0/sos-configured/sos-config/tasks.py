@@ -24,14 +24,14 @@ def update(ctx):
     envs = {
         "public_fqdn": "{0}:{1}".format(pub_ip, pub_port),
         "public_host": "{0}".format(pub_ip),
-        "dburl": db_url,
-        "geodburl": geodb_url,
         "override_fn": "$HOME/.override_env"
     }
     ctx.run("echo export GEOSERVER_PUBLIC_LOCATION=\
 http://{public_fqdn}/geoserver/ >> {override_fn}".format(**envs), pty=True)
     ctx.run("echo export SERVICE_SOSURL=\
-http://{public_fqdn}/observations/service >> {override_fn}".format(**envs), pty=True)
+http://{public_fqdn}/observations/service >> {override_fn}".format(
+        **envs
+    ), pty=True)
 
 
 @task
