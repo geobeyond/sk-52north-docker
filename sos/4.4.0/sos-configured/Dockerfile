@@ -8,7 +8,9 @@ RUN apt-get -y install netcat \
 
 COPY sos-config/configuration.db $CATALINA_HOME/webapps/observations/
 COPY sos-config/datasource.properties $CATALINA_HOME/webapps/observations/WEB-INF
-COPY tomcat-bin/* $CATALINA_HOME/bin
+COPY tomcat-bin/setenv.sh $CATALINA_HOME/bin
+COPY tomcat-bin/index.html $CATALINA_HOME/webapps/ROOT
+#COPY tomcat-bin/observations.xml $CATALINA_HOME/conf/Catalina/localhost
 
 # install python and pip
 RUN apt-get update \

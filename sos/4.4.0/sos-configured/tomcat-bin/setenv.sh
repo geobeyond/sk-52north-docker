@@ -15,4 +15,4 @@ while [ $? -ne 0 ]; do
 done
 echo "postgres for dbsos service available at $TESTING_POSTGRES_URL !"
 
-$@
+#$@
