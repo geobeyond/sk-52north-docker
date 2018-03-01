@@ -1,11 +1,9 @@
-FROM tomcat:9
+FROM tomcat:9-jre8
 MAINTAINER Matthes Rieke <m.rieke@52north.org>
 
 # Project: https://github.com/52North/sos
 
 WORKDIR /tmp
-#COPY tomcat-conf/* $CATALINA_HOME/conf/
-#COPY rest-api-config/* observations/WEB-INF/classes/
 COPY tomcat-conf/ /tmp/tomcat-conf/
 COPY rest-api-config/ /tmp/rest-api-config/
 COPY helgoland-config/ /tmp/helgoland-config/
