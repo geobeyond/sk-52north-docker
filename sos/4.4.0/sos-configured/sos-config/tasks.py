@@ -144,6 +144,18 @@ def _prepare_dict_identifiers():
         "misc.defaultOfferingPrefix": os.getenv(
             "MISC_DEFAULTOFFERINGPREFIX",
             "offering:"
+        ),
+        "service.transactionalToken": os.getenv(
+            "SOS_TRANSACTIONAL_AUTHORIZATION_TOKEN",
+            "changeme"
+        ),
+        "service.transactionalAllowedIps": os.getenv(
+            "TRANSACTIONAL_ALLOWED_IPS",
+            ""
+        ),
+        "service.transactionalAllowedProxies": os.getenv(
+            "TRANSACTIONAL_ALLOWED_PROXIES",
+            ""
         )
     }
 
@@ -159,11 +171,17 @@ def _prepare_dict_identifiers():
         )
     }
 
-    return strings_settings_identifiers, uri_settings_identifiers
+    boolean_settings_identifiers = {
+        " service.security.transactional.active": os.getenv(
+            "TRANSACTIONAL_ACTIVE", 1
+        )
+    }
+
+    return strings_settings_identifiers, uri_settings_identifiers, boolean_settings_identifiers
 
 
 def _prepare_configuration_database():
-    strings, uri = _prepare_dict_identifiers()
+    strings, uri, boolean = _prepare_dict_identifiers()
 
     try:
         db = dataset.connect(
@@ -193,6 +211,17 @@ def _prepare_configuration_database():
                 dict(
                     identifier=item_uri[0],
                     value=item_uri[1]
+                ),
+                ['identifier']
+            )
+
+        tb_boolean_settings = db['boolean_settings']
+        # treat uri dict as tuple to filter and update records
+        for item_boolean in boolean.items():
+            tb_boolean_settings.update(
+                dict(
+                    identifier=item_boolean[0],
+                    value=item_boolean[1]
                 ),
                 ['identifier']
             )
