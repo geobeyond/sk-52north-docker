@@ -96,6 +96,18 @@ def _prepare_dict_identifiers():
     pub_port = _geonode_public_port()
     print "Public PORT is {0}".format(pub_port)
 
+    default_administrator_user = {
+        "id": 1,
+        "username": os.getenv(
+            "SOS_ADMIN_USERNAME",
+            "admin"
+        ),
+        "password": os.getenv(
+            "SOS_ADMIN_PASSWORD",
+            "$2a$10$vbp9aXCDMP/fXwEsqe/1.eon44mMdUyC4ub2JfOrkPfaer5ciLOly"
+        )
+    }
+
     strings_settings_identifiers = {
         "serviceProvider.phone": os.getenv(
             "SERVICEPROVIDER_PHONE",
@@ -177,11 +189,11 @@ def _prepare_dict_identifiers():
         )
     }
 
-    return strings_settings_identifiers, uri_settings_identifiers, boolean_settings_identifiers
+    return strings_settings_identifiers, uri_settings_identifiers, boolean_settings_identifiers, default_administrator_user
 
 
 def _prepare_configuration_database():
-    strings, uri, boolean = _prepare_dict_identifiers()
+    strings, uri, boolean, default_admin = _prepare_dict_identifiers()
 
     try:
         db = dataset.connect(
@@ -193,6 +205,14 @@ def _prepare_configuration_database():
                 'configuration.db'
             )
         )
+        tb_administrator_user = db['administrator_user']
+        # treat strings dict as tuple to filter and update records
+        admin_update = default_admin
+        tb_administrator_user.update(
+            admin_update,
+            ['id']
+        )
+
         tb_strings_settings = db['strings_settings']
         # treat strings dict as tuple to filter and update records
         for item_string in strings.items():
