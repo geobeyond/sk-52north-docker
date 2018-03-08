@@ -27,7 +27,7 @@ def update(ctx):
     ctx.run("echo export GEOSERVER_PUBLIC_LOCATION=\
 http://{public_fqdn}/geoserver/ >> {override_fn}".format(**envs), pty=True)
     ctx.run("echo export SERVICE_SOSURL=\
-http://{public_fqdn}/observations/service >> {override_fn}".format(
+http://{public_fqdn}/observations/sos >> {override_fn}".format(
         **envs
     ), pty=True)
 
