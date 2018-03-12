@@ -6,6 +6,7 @@ import re
 import docker
 
 import dataset
+import bcrypt
 from invoke import run, task
 
 BOOTSTRAP_IMAGE_CHEIP = "codenvy/che-ip:nightly"
@@ -19,15 +20,26 @@ def update(ctx):
     print "Public Hostname or IP is {0}".format(pub_ip)
     pub_port = _geonode_public_port()
     print "Public PORT is {0}".format(pub_port)
+    adminsos_pwd = _sos_admin_pwd(
+        os.getenv(
+            "SOS_ADMIN_PASSWORD",
+            "password"
+        )
+    )
+    print "Admin SOS password bcrypt hashed is {0}".format(adminsos_pwd)
     envs = {
         "public_fqdn": "{0}:{1}".format(pub_ip, pub_port),
         "public_host": "{0}".format(pub_ip),
+        "hashed_pwd": "{0}".format(adminsos_pwd),
         "override_fn": "$HOME/.override_env"
     }
     ctx.run("echo export GEOSERVER_PUBLIC_LOCATION=\
 http://{public_fqdn}/geoserver/ >> {override_fn}".format(**envs), pty=True)
     ctx.run("echo export SERVICE_SOSURL=\
 http://{public_fqdn}/observations/sos >> {override_fn}".format(
+        **envs
+    ), pty=True)
+    ctx.run("echo export SOS_ADMIN_PASSWORD={hashed_pwd} >> {override_fn}".format(
         **envs
     ), pty=True)
 
@@ -87,6 +99,18 @@ def _geonode_public_port():
             os.getenv("GEONODE_INSTANCE_NAME", "starterkit")
         )
     return gn_pub_port
+
+
+def _sos_admin_pwd(pwd):
+    hashed = bcrypt.hashpw(pwd, bcrypt.gensalt())
+    if bcrypt.checkpw(pwd, hashed):
+        print("Initial input password {0} matches!").format(
+            pwd
+        )
+    else:
+        print("Initial input password {0} Does not Match :(").format(
+            pwd
+        )
 
 
 def _prepare_dict_identifiers():
