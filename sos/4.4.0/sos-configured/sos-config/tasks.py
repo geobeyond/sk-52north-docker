@@ -39,7 +39,7 @@ http://{public_fqdn}/geoserver/ >> {override_fn}".format(**envs), pty=True)
 http://{public_fqdn}/observations/sos >> {override_fn}".format(
         **envs
     ), pty=True)
-    ctx.run("echo export SOS_ADMIN_PASSWORD={hashed_pwd} >> {override_fn}".format(
+    ctx.run("echo export SOS_ADMIN_PASSWORD='{hashed_pwd}' >> {override_fn}".format(
         **envs
     ), pty=True)
 
