@@ -107,10 +107,12 @@ def _sos_admin_pwd(pwd):
         print("Initial input password {0} matches!").format(
             pwd
         )
+        return hashed
     else:
         print("Initial input password {0} Does not Match :(").format(
             pwd
         )
+        raise EnvironmentError
 
 
 def _prepare_dict_identifiers():
