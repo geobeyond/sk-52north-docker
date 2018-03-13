@@ -15,7 +15,8 @@ COPY tomcat-bin/index.html $CATALINA_HOME/webapps/ROOT
 # install python and pip
 RUN apt-get update \
     && apt-get -y upgrade \
-    && apt-get install -y python python-pip python-dev
+    && apt-get install -y python python-pip python-dev \
+    && apt-get install postgresql-client
 
 COPY sos-config/requirements.txt /tmp
 COPY sos-config/entrypoint.sh /tmp
