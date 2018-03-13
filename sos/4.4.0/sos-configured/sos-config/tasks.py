@@ -52,6 +52,28 @@ $CATALINA_HOME/webapps/observations/configuration.db.backup", pty=True)
     _prepare_configuration_database()
 
 
+@task
+def updatedbsos(ctx):
+    ctx.run("PGPASSWORD=postgres psql --host=dbsos --port=5432 \
+--username=postgres --dbname=sos -c \
+'ALTER TABLE featureofinterest ALTER hibernatediscriminator TYPE character varying(255)'", pty=True)
+    ctx.run("PGPASSWORD=postgres psql --host=dbsos --port=5432 \
+--username=postgres --dbname=sos -c \
+'ALTER TABLE featureofinterest ALTER hibernatediscriminator DROP NOT NULL'", pty=True)
+    ctx.run("PGPASSWORD=postgres psql --host=dbsos --port=5432 \
+--username=postgres --dbname=sos -c \
+'UPDATE featureofinterest SET hibernatediscriminator=null'", pty=True)
+#    ctx.run("PGPASSWORD=postgres PGCLIENTENCODING=utf-8 psql --host=dbsos \
+# --port=5432 --username=postgres --dbname=sos \
+# -f /usr/local/tomcat/webapps/observations/sql/PostgreSQL/series/PG_script_create.sql", pty=True)
+#    ctx.run("PGPASSWORD=postgres psql -v ON_ERROR_STOP=1 --host=dbsos \
+# --port=5432 --username=postgres --dbname=sos << -EOSQL\
+# ALTER TABLE featureofinterest ALTER hibernatediscriminator TYPE character varying(255)\
+# ALTER TABLE featureofinterest ALTER hibernatediscriminator DROP NOT NULL\
+# UPDATE featureofinterest SET hibernatediscriminator=null\
+# EOSQL", pty=True)
+
+
 def _docker_host_ip():
     client = docker.from_env()
     ip_list = client.containers.run(BOOTSTRAP_IMAGE_CHEIP,

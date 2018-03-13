@@ -10,5 +10,9 @@ source $HOME/.override_env
 
 echo "updatedb task done"
 
+/usr/local/bin/invoke updatedbsos >> /tmp/invoke.log
+
+echo "updatedbsos task done"
+
 # start tomcat
 exec catalina.sh run
