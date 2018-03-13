@@ -54,7 +54,7 @@ $CATALINA_HOME/webapps/observations/configuration.db.backup", pty=True)
 
 @task
 def updatedbsos(ctx):
-   ctx.run("PGPASSWORD=postgres PGCLIENTENCODING=utf-8 psql --host=dbsos \
+    ctx.run("PGPASSWORD=postgres PGCLIENTENCODING=utf-8 psql --host=dbsos \
 --port=5432 --username=postgres --dbname=sos \
 -f /usr/local/tomcat/webapps/observations/sql/PostgreSQL/series/PG_update_43_44.sql", pty=True)
     ctx.run("PGPASSWORD=postgres psql --host=dbsos --port=5432 \
