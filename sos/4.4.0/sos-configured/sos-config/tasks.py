@@ -146,8 +146,8 @@ def _prepare_dict_identifiers():
     print "Public Hostname or IP is {0}".format(pub_ip)
     pub_port = _geonode_public_port()
     print "Public PORT is {0}".format(pub_port)
-    updated_pwd = os.environ['SOS_ADMIN_PASSWORD']
-    print "SOS Admin password is {0}".format(updated_pwd)
+    # updated_pwd = os.environ['SOS_ADMIN_PASSWORD']
+    # print "SOS Admin password is {0}".format(updated_pwd)
 
     default_administrator_user = {
         "id": 1,
