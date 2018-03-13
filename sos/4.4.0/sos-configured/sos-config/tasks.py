@@ -39,9 +39,9 @@ http://{public_fqdn}/geoserver/ >> {override_fn}".format(**envs), pty=True)
 http://{public_fqdn}/observations/sos >> {override_fn}".format(
         **envs
     ), pty=True)
-    ctx.run("echo export SOS_ADMIN_PASSWORD='{hashed_pwd}' >> {override_fn}".format(
-        **envs
-    ), pty=True)
+#    ctx.run("echo export SOS_ADMIN_PASSWORD='{hashed_pwd}' >> {override_fn}".format(
+#        **envs
+#    ), pty=True)
 
 
 @task
@@ -54,6 +54,9 @@ $CATALINA_HOME/webapps/observations/configuration.db.backup", pty=True)
 
 @task
 def updatedbsos(ctx):
+   ctx.run("PGPASSWORD=postgres PGCLIENTENCODING=utf-8 psql --host=dbsos \
+--port=5432 --username=postgres --dbname=sos \
+-f /usr/local/tomcat/webapps/observations/sql/PostgreSQL/series/PG_update_43_44.sql", pty=True)
     ctx.run("PGPASSWORD=postgres psql --host=dbsos --port=5432 \
 --username=postgres --dbname=sos -c \
 'ALTER TABLE featureofinterest ALTER hibernatediscriminator TYPE character varying(255)'", pty=True)
