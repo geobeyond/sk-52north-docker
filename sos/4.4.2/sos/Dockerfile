@@ -7,8 +7,10 @@ WORKDIR /tmp
 COPY tomcat-conf/ /tmp/tomcat-conf/
 COPY rest-api-config/ /tmp/rest-api-config/
 COPY helgoland-config/ /tmp/helgoland-config/
-RUN curl -L -o sos-bundle.zip https://github.com/52North/sos/releases/download/v4.4.2/52n-sensorweb-sos-bundle-4.4.2.zip \
-    && unzip -d sos-bundle sos-bundle.zip \
+COPY sos-bundle.zip /tmp
+# curl doesn't work with 4.4.2 trying locally
+# RUN curl -L -o sos-bundle.zip https://github.com/52North/sos/releases/download/v4.4.2/52n-sensorweb-sos-bundle-4.4.2.zip \
+    RUN unzip -d sos-bundle sos-bundle.zip \
     && unzip -d observations sos-bundle/*/bin/target/*.war \
     && cp -R /tmp/tomcat-conf/* $CATALINA_HOME/conf/ \
     && cp -R /tmp/rest-api-config/* observations/WEB-INF/ \
