@@ -161,7 +161,7 @@ def _prepare_dict_identifiers():
         )
     }
 
-    strings_settings_identifiers = {
+    string_settings_identifiers = {
         "serviceProvider.phone": os.getenv(
             "SERVICEPROVIDER_PHONE",
             "na"
@@ -242,11 +242,11 @@ def _prepare_dict_identifiers():
         )
     }
 
-    return strings_settings_identifiers, uri_settings_identifiers, boolean_settings_identifiers, default_administrator_user
+    return string_settings_identifiers, uri_settings_identifiers, boolean_settings_identifiers, default_administrator_user
 
 
 def _prepare_configuration_database():
-    strings, uri, boolean, default_admin = _prepare_dict_identifiers()
+    string, uri, boolean, default_admin = _prepare_dict_identifiers()
 
     try:
         db = dataset.connect(
@@ -266,10 +266,10 @@ def _prepare_configuration_database():
             ['id']
         )
 
-        tb_strings_settings = db['strings_settings']
-        # treat strings dict as tuple to filter and update records
-        for item_string in strings.items():
-            tb_strings_settings.update(
+        tb_string_settings = db['string_settings']
+        # treat string dict as tuple to filter and update records
+        for item_string in string.items():
+            tb_string_settings.update(
                 dict(
                     identifier=item_string[0],
                     value=item_string[1]
