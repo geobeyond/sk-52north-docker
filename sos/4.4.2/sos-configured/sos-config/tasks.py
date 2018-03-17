@@ -237,8 +237,8 @@ def _prepare_dict_identifiers():
     }
 
     boolean_settings_identifiers = {
-        " service.security.transactional.active": os.getenv(
-            "TRANSACTIONAL_ACTIVE", 1
+        "service.security.transactional.active": os.getenv(
+            "SOS_TRANSACTIONAL_AUTHORIZATION_TOKEN_ACTIVE", 1
         )
     }
 
