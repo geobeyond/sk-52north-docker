@@ -242,11 +242,29 @@ def _prepare_dict_identifiers():
         )
     }
 
-    return string_settings_identifiers, uri_settings_identifiers, boolean_settings_identifiers, default_administrator_user
+    multilingual_string_settings_values_identifiers_it = {
+        "serviceIdentification.abstract": os.getenv(
+            "SERVICEIDENTIFICATION_ABSTRACT_IT", ""
+        ),
+        "serviceIdentification.title": os.getenv(
+            "SERVICEIDENTIFICATION_TITLE_IT", ""
+        )
+    }
+
+    multilingual_string_settings_values_identifiers_en = {
+        "serviceIdentification.abstract": os.getenv(
+            "SERVICEIDENTIFICATION_ABSTRACT_EN", ""
+        ),
+        "serviceIdentification.title": os.getenv(
+            "SERVICEIDENTIFICATION_TITLE_EN", ""
+        )
+    }
+
+    return string_settings_identifiers, uri_settings_identifiers, boolean_settings_identifiers, default_administrator_user, multilingual_string_settings_values_identifiers_it, multilingual_string_settings_values_identifiers_en
 
 
 def _prepare_configuration_database():
-    string, uri, boolean, default_admin = _prepare_dict_identifiers()
+    string, uri, boolean, default_admin, multilingualstring_it, multilingualstring_en = _prepare_dict_identifiers()
 
     try:
         db = dataset.connect(
@@ -289,7 +307,7 @@ def _prepare_configuration_database():
             )
 
         tb_boolean_settings = db['boolean_settings']
-        # treat uri dict as tuple to filter and update records
+        # treat boolean dict as tuple to filter and update records
         for item_boolean in boolean.items():
             tb_boolean_settings.update(
                 dict(
@@ -297,6 +315,27 @@ def _prepare_configuration_database():
                     value=item_boolean[1]
                 ),
                 ['identifier']
+            )
+        
+        tb_multilingual_string_settings_values = db['multilingual_string_settings_values']
+        # treat multilingual string dict as tuple to filter and update records
+        for item_it in multilingualstring_it.items():
+            tb_multilingual_string_settings_values.update(
+                dict(
+                    identifier=item_it[0],
+                    value=item_it[1],
+                    lang="ita"
+                ),
+                ['identifier', 'lang']
+            )
+        for item_en in multilingualstring_en.items():
+            tb_multilingual_string_settings_values.update(
+                dict(
+                    identifier=item_en[0],
+                    value=item_en[1],
+                    lang="eng"
+                ),
+                ['identifier', 'lang']
             )
 
     except OperationalError as e:
