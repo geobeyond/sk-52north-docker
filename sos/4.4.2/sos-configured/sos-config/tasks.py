@@ -146,6 +146,15 @@ def _sos_admin_pwd(pwd):
         raise EnvironmentError
 
 
+def _str2int(string):
+    if string in "1":
+        return 1
+    elif string in "0":
+        return 0
+    else:
+        raise ValueError
+
+
 def _prepare_dict_identifiers():
 
     pub_ip = _geonode_public_host_ip()
@@ -222,11 +231,11 @@ def _prepare_dict_identifiers():
         ),
         "service.transactionalAllowedIps": os.getenv(
             "TRANSACTIONAL_ALLOWED_IPS",
-            ""
+            "127.0.0.1"
         ),
         "service.transactionalAllowedProxies": os.getenv(
             "TRANSACTIONAL_ALLOWED_PROXIES",
-            ""
+            "127.0.0.1"
         )
     }
 
@@ -243,8 +252,10 @@ def _prepare_dict_identifiers():
     }
 
     boolean_settings_identifiers = {
-        "service.security.transactional.active": os.getenv(
-            "SOS_TRANSACTIONAL_AUTHORIZATION_TOKEN_ACTIVE", 1
+        "service.security.transactional.active": _str2int(
+            os.getenv(
+                "SOS_TRANSACTIONAL_AUTHORIZATION_TOKEN_ACTIVE", 1
+            )
         )
     }
 
@@ -314,14 +325,14 @@ def _prepare_configuration_database():
 
         tb_boolean_settings = db['boolean_settings']
         # treat boolean dict as tuple to filter and update records
-        for item_boolean in boolean.items():
-            tb_boolean_settings.update(
-                dict(
-                    identifier=item_boolean[0],
-                    value=item_boolean[1]
-                ),
-                ['identifier']
-            )
+        # for item_boolean in boolean.items():
+        #     tb_boolean_settings.update(
+        #         dict(
+        #             identifier=item_boolean[0],
+        #             value=item_boolean[1]
+        #         ),
+        #         ['identifier']
+        #     )
         
         tb_multilingual_string_settings_values = db['multilingual_string_settings_values']
         # treat multilingual string dict as tuple to filter and update records
