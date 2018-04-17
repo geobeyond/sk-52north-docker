@@ -145,4 +145,4 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>rest-dispatcher</servlet-name>
 		<url-pattern>/api/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping></web-app>
