@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
-	<display-name>52°North Sensor Observation Service, Git-Branch 'v4.2.2' with
-		state '165e8a27d9a7ab029b92cf6b18bc8daa47245f8a' @ 2018-01-24 15:58:33+0100</display-name>
+<web-app 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<display-name>52°North Sensor Observation Service, Git-Branch 'v4.2.2' with		state '165e8a27d9a7ab029b92cf6b18bc8daa47245f8a' @ 2018-01-24 15:58:33+0100</display-name>
 	<description>This is an OGC SOS with Sensor Web REST-API.</description>
 	<context-param>
 		<!--defines the directory in which the log files will be stored. -->
@@ -26,7 +25,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</context-param>
 	<!-- Memory leak preventer listener -->
 	<listener>
-	  <listener-class>se.jiderhamn.classloader.leak.prevention.ClassLoaderLeakPreventor</listener-class>
+		<listener-class>se.jiderhamn.classloader.leak.prevention.ClassLoaderLeakPreventor</listener-class>
 	</listener>
 	<!-- Spring startup listener -->
 	<listener>
@@ -36,31 +35,8 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<listener>
 		<listener-class>org.n52.sos.service.SosContextListener</listener-class>
 	</listener>
-    <!--
-	<filter>
-		<filter-name>CORS</filter-name>
-		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
-		<init-param>
-			<param-name>cors.allowOrigin</param-name>
-			<param-value>*</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.allowGenericHttpRequests</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.supportedMethods</param-name>
-			<param-value>GET, POST, HEAD, PUT, DELETE, OPTIONS</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.supportedHeaders</param-name>
-			<param-value>*</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>CORS</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	<!--
+	<filter><filter-name>CORS</filter-name><filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class><init-param><param-name>cors.allowOrigin</param-name><param-value>*</param-value></init-param><init-param><param-name>cors.allowGenericHttpRequests</param-name><param-value>true</param-value></init-param><init-param><param-name>cors.supportedMethods</param-name><param-value>GET, POST, HEAD, PUT, DELETE, OPTIONS</param-value></init-param><init-param><param-name>cors.supportedHeaders</param-name><param-value>*</param-value></init-param></filter><filter-mapping><filter-name>CORS</filter-name><url-pattern>/*</url-pattern></filter-mapping>
     -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -145,4 +121,5 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>rest-dispatcher</servlet-name>
 		<url-pattern>/api/*</url-pattern>
-	</servlet-mapping></web-app>
+	</servlet-mapping>
+</web-app>
