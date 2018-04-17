@@ -24,7 +24,7 @@ COPY sos-config/requirements.txt /tmp
 COPY sos-config/entrypoint.sh /tmp
 COPY sos-config/tasks.py /tmp
 
-RUN pip install --upgrade pip \
+RUN pip install pip==9.0.3 \
     && pip install -r requirements.txt \
     && chmod +x $CATALINA_HOME/bin/*.sh \
     && chmod +x /tmp/entrypoint.sh \
