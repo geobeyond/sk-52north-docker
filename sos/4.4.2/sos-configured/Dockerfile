@@ -8,7 +8,7 @@ RUN apt-get -y install netcat \
 
 COPY sos-config/configuration.db $CATALINA_HOME/webapps/observations/
 COPY sos-config/datasource.properties $CATALINA_HOME/webapps/observations/WEB-INF
-RUN $CATALINA_HOME/webapps/observations/WEB-INF/web.xml $CATALINA_HOME/webapps/observations/WEB-INF/web.xml.orig
+RUN  cp $CATALINA_HOME/webapps/observations/WEB-INF/web.xml $CATALINA_HOME/webapps/observations/WEB-INF/web.xml.orig
 COPY tomcat-bin/web-observations.xml $CATALINA_HOME/webapps/observations/WEB-INF/web.xml
 COPY tomcat-bin/web-conf.xml $CATALINA_HOME/conf/web.xml
 COPY tomcat-bin/setenv.sh $CATALINA_HOME/bin
