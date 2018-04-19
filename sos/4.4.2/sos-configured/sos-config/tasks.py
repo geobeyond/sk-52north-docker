@@ -325,14 +325,14 @@ def _prepare_configuration_database():
 
         tb_boolean_settings = db['boolean_settings']
         # treat boolean dict as tuple to filter and update records
-        # for item_boolean in boolean.items():
-        #     tb_boolean_settings.update(
-        #         dict(
-        #             identifier=item_boolean[0],
-        #             value=item_boolean[1]
-        #         ),
-        #         ['identifier']
-        #     )
+        for item_boolean in boolean.items():
+            tb_boolean_settings.update(
+                dict(
+                    identifier=item_boolean[0],
+                    value=item_boolean[1]
+                ),
+                ['identifier']
+            )
         
         tb_multilingual_string_settings_values = db['multilingual_string_settings_values']
         # treat multilingual string dict as tuple to filter and update records
