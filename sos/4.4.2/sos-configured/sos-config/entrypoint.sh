@@ -10,9 +10,17 @@ source $HOME/.override_env
 
 echo "updatedb task done"
 
-/usr/local/bin/invoke updatedbsos >> /tmp/invoke.log
+if [ ${IS_FIRST_START} = "true" ]
+then
 
-echo "updatedbsos task done"
+    /usr/local/bin/invoke updatedbsos >> /tmp/invoke.log
+    echo "updatedbsos task done"
+
+else
+
+    echo "dbsos not altered"
+
+fi
 
 # start tomcat
 exec catalina.sh run

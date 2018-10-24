@@ -333,7 +333,7 @@ def _prepare_configuration_database():
                 ),
                 ['identifier']
             )
-        
+
         tb_multilingual_string_settings_values = db['multilingual_string_settings_values']
         # treat multilingual string dict as tuple to filter and update records
         for item_it in multilingualstring_it.items():
